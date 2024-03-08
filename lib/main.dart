@@ -118,13 +118,18 @@ class _MyHomePageState extends State<MyHomePage> {
                     setState(() {
                       response = e.message;
                     });
+                  }catch (e){
+                    setState(() {
+                      response = e.toString();
+                    });
                   }
                 }, child: const Text("Enable Bluetooth")),
                 response != null
                 ?Column(
                   children: [
                     const SizedBox(height: 5,),
-                    Text(response ?? ""),
+                    Container(padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Text(response ?? "", textAlign: TextAlign.center,)),
                   ],
                 ): const SizedBox(),
                 const SizedBox(height: 20,),

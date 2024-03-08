@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 
+// Model for Profile Data
 class Profile{
   Name? name;
   Location? location;

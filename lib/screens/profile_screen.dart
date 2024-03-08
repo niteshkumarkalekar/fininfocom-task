@@ -2,6 +2,7 @@ import 'package:fininfocom_task/models/data_provider.dart';
 import 'package:flutter/material.dart';
 import '../models/profile.dart';
 
+// A Page that loads and display a random profile
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key, required this.provider});
   final DataProvider<Profile> provider;
@@ -211,7 +212,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
           )
               : Column(
             children: [
-              const Text("No Internet Connection Found! Please Check your internet connection.",),
+               Container(
+                margin: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.red),
+                    color: Colors.red.shade50),
+                child: const Column(
+                  children: [
+                    Text(
+                      "No Internet connection!",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    Text(
+                        "Please check your internet connection and try again.",
+                        style: TextStyle(fontSize: 14))
+                  ],
+                ),
+              ),
               const SizedBox(
                 height: 30,
               ),

@@ -4,12 +4,16 @@ import 'package:fininfocom_task/models/profile.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
+// A provider class that handles data services and notify changes
+// with [isLoading], [isInternetConnected], [isError]
 class DataProvider<T> extends ChangeNotifier{
   bool isLoading = true;
   bool isInternetConnected = true;
   T? data;
   bool isError = false;
-  final Future<T?> Function() loadData;
+
+  // function that loads data from the backend or api
+  final Future<T?> Function(http.Client) loadData;
 
   DataProvider({required this.loadData});
 
@@ -28,7 +32,7 @@ class DataProvider<T> extends ChangeNotifier{
     final connectivity  = await Connectivity().checkConnectivity();
 
     if(connectivity != ConnectivityResult.none) {
-      final result = await loadData();
+      final result = await loadData(http.Client());
       printToConsole("Result: $result");
       if(result != null){
         data = result;
@@ -51,10 +55,11 @@ class DataProvider<T> extends ChangeNotifier{
   }
 }
 
+// The call that handles that loading data for dog images
 class DogImageService{
-  Future<String?> loadRandomDogImage()async{
+  Future<String?> loadRandomDogImage(http.Client client)async{
     const url = "https://dog.ceo/api/breeds/image/random";
-      final response = await http.get(Uri.parse(url));
+      final response = await client.get(Uri.parse(url));
       if(response.statusCode == 200){
         try {
           return (jsonDecode(response.body)["message"]).toString().replaceAll(r'\', "");
@@ -66,10 +71,11 @@ class DogImageService{
   }
 }
 
+// class that handles that loading data for profiles
 class ProfileService{
-  Future<Profile?> loadProfile()async{
+  Future<Profile?> loadProfile(http.Client client)async{
     const url = "https://randomuser.me/api/";
-    final response = await http.get(Uri.parse(url));
+    final response = await client.get(Uri.parse(url));
     if(response.statusCode == 200){
       try {
         return Profile.fromJson(jsonDecode(response.body));

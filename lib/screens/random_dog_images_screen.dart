@@ -1,6 +1,7 @@
 import 'package:fininfocom_task/models/data_provider.dart';
 import 'package:flutter/material.dart';
 
+// A Page that loads and display a random Dog Image
 class RandomDogImageScreen extends StatefulWidget {
   const RandomDogImageScreen({super.key, required this.provider});
   final DataProvider<String> provider;

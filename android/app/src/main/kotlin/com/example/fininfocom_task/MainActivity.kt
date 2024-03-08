@@ -71,30 +71,16 @@ class MainActivity: FlutterActivity(){
                             Manifest.permission.BLUETOOTH_CONNECT
                         ) != PackageManager.PERMISSION_GRANTED
                     ) {
-                        // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
                         result?.error("PERMISSION_NOT_GRANTED", "Permission not granted. Please Grant permissions from App Settings.", null)
                         return
                     }
                     startActivityForResult(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), REQUEST_ENABLE_BT)
                 } else {
-                    // Explain to the user that the feature is unavailable because
-                    // the feature requires a permission that the user has denied.
-                    // At the same time, respect the user's decision. Don't link to
-                    // system settings in an effort to convince the user to change
-                    // their decision.
                     result?.error("PERMISSION_NOT_GRANTED", "Permission not granted. Please Grant permissions from App Settings.", null)
                 }
 
             }
 
-            // Add other 'when' lines to check for other
-            // permissions this app might request.
             else -> {
                 // Ignore all other requests.
             }
